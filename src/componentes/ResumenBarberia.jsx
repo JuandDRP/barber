@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import logo from './../assets/logo.jpg'
 export const ResumenBarberia = () => {
   const [clientes, setClientes] = useState([]);
   const [reservas, setReservas] = useState([]);
@@ -99,9 +99,44 @@ export const ResumenBarberia = () => {
 
   const reservasPorBarbero = reservas.reduce((acc, reserva) => {
     if (!acc[reserva.barbero]) acc[reserva.barbero] = [];
-    acc[reserva.barbero].push({ hora: reserva.hora, nombreCliente: reserva.nombreCliente });
+    acc[reserva.barbero].push({
+      hora: reserva.hora,
+      nombreCliente: reserva.nombreCliente,
+      numeroCelular: reserva.numeroCelular,
+      fecha: reserva.fecha,
+      barbero: reserva.barbero
+    });
     return acc;
   }, {});
+
+
+  const eliminarReserva = async (reserva) => {
+    try {
+      // await axios.post('https://back-barber-q7x2.onrender.com/eliminarReserva', {
+      await axios.post('https://back-barber-q7x2.onrender.com/eliminarReserva', {
+
+        barbero: reserva.barbero,
+        fecha: reserva.fecha,
+        hora: reserva.hora,
+        numeroCelular: reserva.numeroCelular
+      });
+      // Actualiza reservas después de eliminar
+      setReservas((prev) =>
+        prev.filter(
+          (r) =>
+            !(
+              r.barbero === reserva.barbero &&
+              r.fecha === reserva.fecha &&
+              r.hora === reserva.hora &&
+              r.numeroCelular === reserva.numeroCelular
+            )
+        )
+      );
+    } catch (error) {
+      console.error('Error eliminando reserva', error);
+    }
+  };
+
 
   if (!logueado) {
     return (
@@ -142,31 +177,60 @@ export const ResumenBarberia = () => {
 
   return (
     <div className="max-w-5xl mx-auto p-6">
+      <div className="flex justify-center mb-6">
+        <img src={logo} alt="Logo de la barbería" className="h-28" />
+      </div>
       <h2 className="text-2xl font-bold mb-4 text-center">Resumen de la Barbería</h2>
+      <div className="mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
+          <label className="font-medium">Seleccionar fecha:</label>
+          <input
+            type="date"
+            value={fecha}
+            onChange={(e) => setFecha(e.target.value)}
+            className="p-2 border rounded shadow-sm w-full sm:w-auto"
+          />
+        </div>
 
-      <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-2">Reservas por Barbero</h3>
-        <input
-          type="date"
-          value={fecha}
-          onChange={(e) => setFecha(e.target.value)}
-          className="mb-4 p-2 border rounded"
-        />
         {reservas.length === 0 ? (
-          <p className="text-gray-600">No hay reservas para este día.</p>
+          <p className="text-gray-600 text-center">No hay reservas para este día.</p>
         ) : (
-          Object.entries(reservasPorBarbero).map(([barbero, detalles]) => (
-            <div key={barbero} className="mt-4">
-              <h4 className="font-semibold">{barbero}</h4>
-              <ul className="list-disc ml-6">
-                {detalles.map((r, i) => (
-                  <li key={i}>{r.hora} - {r.nombreCliente}</li>
-                ))}
-              </ul>
-            </div>
-          ))
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {Object.entries(reservasPorBarbero).map(([barbero, detalles]) => (
+              <div key={barbero} className="bg-white shadow-lg rounded-xl p-4 border border-gray-200">
+                <h4 className="text-xl font-semibold text-green-700 mb-3 border-b pb-2">{barbero}</h4>
+                <ul className="space-y-2">
+                  {detalles.map((r, i) => (
+                    <li key={i} className="flex justify-between items-center bg-gray-100 p-2 rounded shadow-sm">
+                      <div>
+                        <span className="font-medium">{r.hora}</span> - {r.nombreCliente}
+                        <br />
+                        <span className="text-sm text-gray-600">{r.numeroCelular}</span>
+                      </div>
+
+                      <div className="flex gap-2">
+
+                        <button
+                          className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
+                          onClick={() => eliminarReserva({
+                            barbero,
+                            fecha,
+                            hora: r.hora,
+                            numeroCelular: r.numeroCelular // debes incluir este dato en `reservasPorBarbero`
+                          })}
+                        >
+                          Eliminar reserva
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         )}
       </div>
+
 
       <div className="mb-6">
         <button

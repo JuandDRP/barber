@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-
+import logo from './../assets/logo.jpg';
+import ig2 from './../assets/ig2.png';
+import './DisponibilidadBarberos.css';
 const barberos = ['Camilo', 'Juan'];
 
 export const DisponibilidadBarberos = () => {
@@ -11,7 +13,7 @@ export const DisponibilidadBarberos = () => {
         const mm = String(hoy.getMonth() + 1).padStart(2, '0');
         const dd = String(hoy.getDate()).padStart(2, '0');
         return `${yyyy}-${mm}-${dd}`;
-      });
+    });
     const [disponibilidad, setDisponibilidad] = useState({});
     const [seleccion, setSeleccion] = useState({});
     const [nombreCliente, setNombreCliente] = useState('');
@@ -152,7 +154,12 @@ export const DisponibilidadBarberos = () => {
     //   );
     return (
         <div className="min-h-screen bg-gray-100 p-6">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"></link>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"></link>
             <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+                <div className="flex justify-center mb-6">
+                    <img src={logo} alt="Logo de la barbería" className="h-28" />
+                </div>
                 <h2 className="text-3xl font-bold text-center text-gray-800 mb-8 uppercase tracking-wide">
                     Agenda tu Cita
                 </h2>
@@ -210,7 +217,7 @@ export const DisponibilidadBarberos = () => {
                                                 <button
                                                     key={hora}
                                                     onClick={() => seleccionarHora(barbero, hora)}
-                                                    className={`px-4 py-2 rounded-md text-sm border transition ${seleccion[barbero] === hora
+                                                    className={`w-24 text-center px-4 py-2 rounded-md text-sm border transition ${seleccion[barbero] === hora
                                                         ? 'bg-gray-800 text-white border-gray-800'
                                                         : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'
                                                         }`}
@@ -239,6 +246,12 @@ export const DisponibilidadBarberos = () => {
                     </div>
                 )}
             </div>
+            <a href="https://wa.me/573156757345?text=Hola%2C%20que%20disponibilidad%20tienes" class="float" target="_blank" rel="noopener noreferrer">
+                <i class="fa fa-whatsapp my-float"></i>
+            </a>
+            <a href="https://www.instagram.com/barberia_luxury19" class="float2" target="_blank" rel="noopener noreferrer">
+                <img src={ig2} alt="Instagram" />
+            </a>
         </div>
     );
 
