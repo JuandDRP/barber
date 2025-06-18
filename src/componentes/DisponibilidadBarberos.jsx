@@ -85,78 +85,11 @@ export const DisponibilidadBarberos = () => {
         cargarDisponibilidad();
     }, [cargarDisponibilidad]);
 
-    //   return (
-    //     <div className="p-4 max-w-3xl mx-auto bg-white rounded shadow">
-    //       <h2 className="text-2xl font-semibold mb-4 text-center">Agendar cita en la barbería</h2>
-
-    //       <div className="mb-4">
-    //         <label className="block mb-1 font-medium">Nombre:</label>
-    //         <input
-    //           type="text"
-    //           value={nombreCliente}
-    //           onChange={(e) => setNombreCliente(e.target.value)}
-    //           className="w-full p-2 border rounded"
-    //         />
-    //       </div>
-
-    //       <div className="mb-4">
-    //         <label className="block mb-1 font-medium">Fecha:</label>
-    //         <input
-    //           type="date"
-    //           value={fecha}
-    //           onChange={manejarCambioFecha}
-    //           className="w-full p-2 border rounded"
-    //         />
-    //       </div>
-
-    //       {cargando && <p className="text-gray-500">Cargando disponibilidad...</p>}
-    //       {error && <p className="text-red-500">{error}</p>}
-    //       {mensaje && <p className="text-green-600">{mensaje}</p>}
-
-    //       {!cargando && fecha && (
-    //         <div className="space-y-6 mt-6">
-    //           {barberos.map((barbero) => (
-    //             <div key={barbero} className="border p-4 rounded shadow">
-    //               <h3 className="text-lg font-bold mb-2">{barbero}</h3>
-    //               {disponibilidad[barbero]?.length > 0 ? (
-    //                 <div className="flex flex-wrap gap-2 mb-4">
-    //                   {disponibilidad[barbero].map((hora) => (
-    //                     <button
-    //                       key={hora}
-    //                       onClick={() => seleccionarHora(barbero, hora)}
-    //                       className={`px-4 py-2 rounded border ${
-    //                         seleccion[barbero] === hora
-    //                           ? 'bg-blue-600 text-white'
-    //                           : 'bg-gray-200 hover:bg-blue-100'
-    //                       }`}
-    //                     >
-    //                       {hora}
-    //                     </button>
-    //                   ))}
-    //                 </div>
-    //               ) : (
-    //                 <p className="text-gray-500">No hay horas disponibles.</p>
-    //               )}
-
-    //               {seleccion[barbero] && (
-    //                 <button
-    //                   onClick={() => hacerReserva(barbero)}
-    //                   className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-    //                 >
-    //                   Reservar a las {seleccion[barbero]}
-    //                 </button>
-    //               )}
-    //             </div>
-    //           ))}
-    //         </div>
-    //       )}
-    //     </div>
-    //   );
     return (
-        <div className="min-h-screen bg-gray-100 p-6">
+        <div className="min-h-screen bg-gray-100 p-2">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"></link>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"></link>
-            <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+            <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-4 border border-gray-200">
                 <div className="flex justify-center mb-6">
                     <img src={logo} alt="Logo de la barbería" className="h-28" />
                 </div>
