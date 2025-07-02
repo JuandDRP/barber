@@ -1,0 +1,26 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  overflow-x: hidden; /* ✅ Solo evita scroll horizontal */
+}
+
+body {
+  background-image: url('/public/fondo.jpg'); /* 🔥 sin /public */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh; /* ✅ Solo cubre la pantalla, no más */
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: -1;
+}
+

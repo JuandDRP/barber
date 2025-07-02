@@ -178,12 +178,12 @@ export const ResumenBarberia = () => {
   return (
     <div className="max-w-5xl mx-auto p-6">
       <div className="flex justify-center mb-6">
-        <img src={logo} alt="Logo de la barbería" className="h-28" />
+        <img src={logo} alt="Logo de la barbería" className="h-40 w-40 rounded-full object-cover mx-auto" />
       </div>
-      <h2 className="text-2xl font-bold mb-4 text-center">Resumen de la Barbería</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center text-white">Resumen de la Barbería</h2>
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
-          <label className="font-medium">Seleccionar fecha:</label>
+          <label className="font-medium text-white">Seleccionar fecha:</label>
           <input
             type="date"
             value={fecha}
@@ -193,7 +193,7 @@ export const ResumenBarberia = () => {
         </div>
 
         {reservas.length === 0 ? (
-          <p className="text-gray-600 text-center">No hay reservas para este día.</p>
+          <p className="text-white text-center">No hay reservas para este día.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {Object.entries(reservasPorBarbero).map(([barbero, detalles]) => (
@@ -205,7 +205,7 @@ export const ResumenBarberia = () => {
                       <div>
                         <span className="font-medium">{r.hora}</span> - {r.nombreCliente}
                         <br />
-                        <span className="text-sm text-gray-600">{r.numeroCelular}</span>
+                        <span className="text-sm text-white">{r.numeroCelular}</span>
                       </div>
 
                       <div className="flex gap-2">
@@ -297,13 +297,13 @@ export const ResumenBarberia = () => {
           {mostrarClientes ? 'Ocultar Clientes' : 'Mostrar Clientes'}
         </button>
 
-        {mostrarClientes && (
+        {/* {mostrarClientes && (
           <>
-            <h3 className="text-lg font-semibold mb-2">Clientes y peluqueadas</h3>
+            <h3 className="text-lg font-semibold mb-2 text-white">Clientes y peluqueadas</h3>
             <table className="w-full table-auto border">
               <thead>
                 <tr className="bg-gray-200">
-                  <th className="border px-4 py-2 text-left">Celular</th>
+                  <th className="border px-4 py-2 text-left ">Celular</th>
                   <th className="border px-4 py-2 text-left">Nombre</th>
                   <th className="border px-4 py-2 text-left"># Peluqueadas</th>
                 </tr>
@@ -311,15 +311,41 @@ export const ResumenBarberia = () => {
               <tbody>
                 {clientes.map((cliente) => (
                   <tr key={cliente.numeroCelular}>
-                    <td className="border px-4 py-2">{cliente.numeroCelular}</td>
-                    <td className="border px-4 py-2">{cliente.nombreCliente}</td>
-                    <td className="border px-4 py-2">{cliente.peluqueadas}</td>
+                    <td className="border px-4 py-2 text-white">{cliente.numeroCelular}</td>
+                    <td className="border px-4 py-2 text-white">{cliente.nombreCliente}</td>
+                    <td className="border px-4 py-2 text-white">{cliente.peluqueadas}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </>
+        )} */}
+        {mostrarClientes && (
+          <>
+            <h3 className="text-lg font-semibold mb-2 text-white">Clientes y peluqueadas</h3>
+            <div className="overflow-x-auto">
+              <table className="min-w-full table-auto border">
+                <thead>
+                  <tr className="bg-gray-200">
+                    <th className="border px-4 py-2 text-left">Celular</th>
+                    <th className="border px-4 py-2 text-left">Nombre</th>
+                    <th className="border px-4 py-2 text-left"># Peluqueadas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {clientes.map((cliente) => (
+                    <tr key={cliente.numeroCelular}>
+                      <td className="border px-4 py-2 text-white">{cliente.numeroCelular}</td>
+                      <td className="border px-4 py-2 text-white">{cliente.nombreCliente}</td>
+                      <td className="border px-4 py-2 text-white">{cliente.peluqueadas}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
+
       </div>
 
 

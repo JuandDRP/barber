@@ -35,28 +35,35 @@ export const DisponibilidadBarberos = () => {
     };
 
     const hacerReserva = async (barbero) => {
-        if (!nombreCliente || !numeroCelular || !seleccion[barbero] || !fecha) {
-            return setError('Debes ingresar tu nombre, celular y seleccionar una hora.');
-        }
+    if (!nombreCliente || !numeroCelular || !seleccion[barbero] || !fecha) {
+        return setError('Debes ingresar tu nombre, celular y seleccionar una hora.');
+    }
 
-        try {
-            await axios.post('https://back-barber-q7x2.onrender.com/reservar', {
-                nombreCliente,
-                numeroCelular,
-                barbero,
-                fecha,
-                hora: seleccion[barbero],
-            });
+    try {
+        const res = await axios.post('https://back-barber-q7x2.onrender.com/reservar', {
+            nombreCliente,
+            numeroCelular,
+            barbero,
+            fecha,
+            hora: seleccion[barbero],
+        });
 
-            setMensaje(`Reserva confirmada con ${barbero} a las ${seleccion[barbero]}`);
-            setError('');
-            setSeleccion((prev) => ({ ...prev, [barbero]: '' }));
-            cargarDisponibilidad(); // recargar disponibilidad
-        } catch (err) {
-            console.error(err);
-            setError(err.response?.data?.error || 'Error al hacer la reserva');
-        }
-    };
+        const esCorteGratis = res.data.peluqueadas === 7;
+
+        setMensaje(
+            `Reserva confirmada con ${barbero} a las ${seleccion[barbero]}` +
+            (esCorteGratis ? ' 🎉 ¡Este corte es gratuito por ser tu número 7!' : '')
+        );
+        setError('');
+        setSeleccion((prev) => ({ ...prev, [barbero]: '' }));
+        cargarDisponibilidad(); // recargar disponibilidad
+    } catch (err) {
+        console.error(err);
+        setError(err.response?.data?.error || 'Error al hacer la reserva');
+    }
+};
+
+
 
     const cargarDisponibilidad = useCallback(async () => {
         if (!fecha) return;
@@ -86,20 +93,20 @@ export const DisponibilidadBarberos = () => {
     }, [cargarDisponibilidad]);
 
     return (
-        <div className="min-h-screen bg-gray-100 p-2">
+        <div className="min-h-screen p-2">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"></link>
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"></link>
-            <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-4 border border-gray-200">
+            <div className="max-w-4xl mx-auto rounded-2xl shadow-lg p-4 border border-gray-200">
                 <div className="flex justify-center mb-6">
-                    <img src={logo} alt="Logo de la barbería" className="h-28" />
+                    <img src={logo} alt="Logo de la barbería" className="h-40 w-40 rounded-full object-cover mx-auto" />
                 </div>
-                <h2 className="text-3xl font-bold text-center text-gray-800 mb-8 uppercase tracking-wide">
+                <h2 className="text-3xl font-bold text-center text-white mb-8 uppercase tracking-wide">
                     Agenda tu Cita
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Nombre del Cliente</label>
+                        <label className="block text-sm font-medium text-white mb-1">Nombre del Cliente</label>
                         <input
                             type="text"
                             value={nombreCliente}
@@ -110,7 +117,7 @@ export const DisponibilidadBarberos = () => {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Celular</label>
+                        <label className="block text-sm font-medium text-white mb-1">Celular</label>
                         <input
                             type="tel"
                             value={numeroCelular}
@@ -121,7 +128,7 @@ export const DisponibilidadBarberos = () => {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Fecha</label>
+                        <label className="block text-sm font-medium text-white mb-1">Fecha</label>
                         <input
                             type="date"
                             value={fecha}
