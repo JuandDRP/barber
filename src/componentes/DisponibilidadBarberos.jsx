@@ -52,7 +52,7 @@ export const DisponibilidadBarberos = () => {
 
         setMensaje(
             `Reserva confirmada con ${barbero} a las ${seleccion[barbero]}` +
-            (esCorteGratis ? ' 🎉 ¡Este corte es gratuito por ser tu número 7!' : '')
+            (esCorteGratis ? ' 🎉 ¡Este corte es gratuito por ser tu número 7!' : `, esta es tu peluqueada #${res.data.peluqueadas}`)
         );
         setError('');
         setSeleccion((prev) => ({ ...prev, [barbero]: '' }));
