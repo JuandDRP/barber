@@ -141,10 +141,10 @@ export const ResumenBarberia = () => {
   if (!logueado) {
     return (
       <div className="max-w-md mx-auto p-6 mt-10 border rounded shadow">
-        <h2 className="text-xl font-bold mb-4 text-center">Iniciar Sesión</h2>
+        <h2 className="text-xl font-bold mb-4 text-center text-white">Iniciar Sesión</h2>
         <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label className="block mb-1">Usuario:</label>
+            <label className="block mb-1 text-white">Usuario:</label>
             <input
               type="text"
               value={usuario}
@@ -154,7 +154,7 @@ export const ResumenBarberia = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-1">Contraseña:</label>
+            <label className="block mb-1 text-white">Contraseña:</label>
             <input
               type="password"
               value={contrasena}
@@ -242,10 +242,10 @@ export const ResumenBarberia = () => {
 
         {mostrarDisponibilidad && (
           <>
-            <h3 className="text-lg font-semibold mb-2">Formulario de Disponibilidad</h3>
+            <h3 className="text-lg font-semibold mb-2 text-white">Añadir de Disponibilidad</h3>
             <form onSubmit={enviarDisponibilidad} className="space-y-4">
               <div>
-                <label className="block mb-1">Barbero (Juan o Camilo):</label>
+                <label className="block mb-1 text-white">Barbero (Juan o Camilo):</label>
                 <select
                   value={barbero}
                   onChange={(e) => setBarbero(e.target.value)}
@@ -258,7 +258,7 @@ export const ResumenBarberia = () => {
                 </select>
               </div>
               <div>
-                <label className="block mb-1">Fecha:</label>
+                <label className="block mb-1 text-white">Fecha:</label>
                 <input
                   type="date"
                   value={fechaDisp}
@@ -268,7 +268,7 @@ export const ResumenBarberia = () => {
                 />
               </div>
               <div>
-                <label className="block mb-1">Horas (separadas por coma, ej: 08:00, 08:30):</label>
+                <label className="block mb-1 text-white">Horas (separadas por coma, ej: 08:00, 08:30):</label>
                 <input
                   type="text"
                   value={horasTexto}
@@ -296,30 +296,6 @@ export const ResumenBarberia = () => {
         >
           {mostrarClientes ? 'Ocultar Clientes' : 'Mostrar Clientes'}
         </button>
-
-        {/* {mostrarClientes && (
-          <>
-            <h3 className="text-lg font-semibold mb-2 text-white">Clientes y peluqueadas</h3>
-            <table className="w-full table-auto border">
-              <thead>
-                <tr className="bg-gray-200">
-                  <th className="border px-4 py-2 text-left ">Celular</th>
-                  <th className="border px-4 py-2 text-left">Nombre</th>
-                  <th className="border px-4 py-2 text-left"># Peluqueadas</th>
-                </tr>
-              </thead>
-              <tbody>
-                {clientes.map((cliente) => (
-                  <tr key={cliente.numeroCelular}>
-                    <td className="border px-4 py-2 text-white">{cliente.numeroCelular}</td>
-                    <td className="border px-4 py-2 text-white">{cliente.nombreCliente}</td>
-                    <td className="border px-4 py-2 text-white">{cliente.peluqueadas}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </>
-        )} */}
         {mostrarClientes && (
           <>
             <h3 className="text-lg font-semibold mb-2 text-white">Clientes y peluqueadas</h3>
@@ -347,10 +323,6 @@ export const ResumenBarberia = () => {
         )}
 
       </div>
-
-
-
-
       {error && <p className="text-red-600">{error}</p>}
     </div>
   );
