@@ -139,7 +139,7 @@ export const DisponibilidadBarberos = () => {
                 </div>
                 {cargando && <p className="text-gray-500 italic">Cargando disponibilidad...</p>}
                 {error && <p className="text-red-600 font-medium">{error}</p>}
-                {mensaje && <p className="text-green-600 font-medium">{mensaje}</p>}
+                {mensaje && <p className="text-green-600 font-bold text-lg mt-4 text-center">{mensaje}</p>}
 
                 {!cargando && fecha && (
                     <div className="space-y-8 mt-8">
