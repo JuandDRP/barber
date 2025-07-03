@@ -56,7 +56,7 @@ export const DisponibilidadBarberos = () => {
         );
         setError('');
         setSeleccion((prev) => ({ ...prev, [barbero]: '' }));
-        cargarDisponibilidad(); // recargar disponibilidad
+        cargarDisponibilidad();
     } catch (err) {
         console.error(err);
         setError(err.response?.data?.error || 'Error al hacer la reserva');

@@ -300,20 +300,22 @@ export const ResumenBarberia = () => {
           <>
             <h3 className="text-lg font-semibold mb-2 text-white">Clientes y peluqueadas</h3>
             <div className="overflow-x-auto">
-              <table className="min-w-full table-auto border">
+              <table className="min-w-full table-auto border border border-black">
                 <thead>
                   <tr className="bg-gray-200">
-                    <th className="border px-4 py-2 text-left">Celular</th>
-                    <th className="border px-4 py-2 text-left">Nombre</th>
-                    <th className="border px-4 py-2 text-left"># Peluqueadas</th>
+                    <th className="border border-black px-4 py-2 text-left">Celular</th>
+                    <th className="border border-black px-4 py-2 text-left">Nombre</th>
+                    <th className="border border-black px-4 py-2 text-left"># Peluqueadas</th>
+                    <th className="border border-black px-4 py-2 text-left">Regaladas</th>
                   </tr>
                 </thead>
                 <tbody>
                   {clientes.map((cliente) => (
-                    <tr key={cliente.numeroCelular}>
-                      <td className="border px-4 py-2 text-white">{cliente.numeroCelular}</td>
-                      <td className="border px-4 py-2 text-white">{cliente.nombreCliente}</td>
-                      <td className="border px-4 py-2 text-white">{cliente.peluqueadas}</td>
+                    <tr key={cliente.numeroCelular} className="bg-gray-200">
+                      <td className="border border-black px-4 py-2 ">{cliente.numeroCelular}</td>
+                      <td className="border border-black px-4 py-2 ">{cliente.nombreCliente}</td>
+                      <td className="border border-black px-4 py-2 ">{cliente.peluqueadas}</td>
+                      <td className="border border-black px-4 py-2 ">{cliente.regaladas}</td>
                     </tr>
                   ))}
                 </tbody>
