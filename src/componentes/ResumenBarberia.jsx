@@ -29,7 +29,9 @@ export const ResumenBarberia = () => {
   });
   const [horasTexto, setHorasTexto] = useState('');
   const [mensajeDisp, setMensajeDisp] = useState('');
-
+  useEffect(() => {
+    axios.get('https://back-barber-q7x2.onrender.com/ping').catch(() => {});
+  }, []);
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrorLogin('');
