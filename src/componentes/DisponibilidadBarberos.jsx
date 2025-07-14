@@ -35,58 +35,88 @@ export const DisponibilidadBarberos = () => {
     };
 
     const hacerReserva = async (barbero) => {
-    if (!nombreCliente || !numeroCelular || !seleccion[barbero] || !fecha) {
-        return setError('Debes ingresar tu nombre, celular y seleccionar una hora.');
-    }
+        if (!nombreCliente || !numeroCelular || !seleccion[barbero] || !fecha) {
+            return setError('Debes ingresar tu nombre, celular y seleccionar una hora.');
+        }
 
-    try {
-        const res = await axios.post('https://back-barber-q7x2.onrender.com/reservar', {
-            nombreCliente,
-            numeroCelular,
-            barbero,
-            fecha,
-            hora: seleccion[barbero],
-        });
+        try {
+            const res = await axios.post('https://back-barber-q7x2.onrender.com/reservar', {
+                nombreCliente,
+                numeroCelular,
+                barbero,
+                fecha,
+                hora: seleccion[barbero],
+            });
 
-        const esCorteGratis = res.data.peluqueadas === 7;
+            const esCorteGratis = res.data.peluqueadas === 7;
 
-        setMensaje(
-            `Reserva confirmada con ${barbero} a las ${seleccion[barbero]}` +
-            (esCorteGratis ? ' 🎉 ¡Este corte es gratuito por ser tu número 7!' : `, este es tu corte #${res.data.peluqueadas}`)
-        );
-        setError('');
-        setSeleccion((prev) => ({ ...prev, [barbero]: '' }));
-        cargarDisponibilidad();
-    } catch (err) {
-        console.error(err);
-        setError(err.response?.data?.error || 'Error al hacer la reserva');
-    }
-};
+            setMensaje(
+                `Reserva confirmada con ${barbero} a las ${seleccion[barbero]}` +
+                (esCorteGratis ? ' 🎉 ¡Este corte es gratuito por ser tu número 7!' : `, este es tu corte #${res.data.peluqueadas}`)
+            );
+            setError('');
+            setSeleccion((prev) => ({ ...prev, [barbero]: '' }));
+            cargarDisponibilidad();
+        } catch (err) {
+            console.error(err);
+            setError(err.response?.data?.error || 'Error al hacer la reserva');
+        }
+    };
 
 
 
+    // const cargarDisponibilidad = useCallback(async () => {
+    //     if (!fecha) return;
+
+    //     setCargando(true);
+    //     setError('');
+    //     const nuevaDisponibilidad = {};
+
+    //     for (const barbero of barberos) {
+    //         try {
+    //             const { data } = await axios.get(
+    //                 `https://back-barber-q7x2.onrender.com/disponibilidad/${barbero}/${fecha}`
+    //             );
+    //             nuevaDisponibilidad[barbero] = data.disponibles;
+    //         } catch (err) {
+    //             console.warn(`No hay disponibilidad para ${barbero}`);
+    //             nuevaDisponibilidad[barbero] = [];
+    //         }
+    //     }
+
+    //     setDisponibilidad(nuevaDisponibilidad);
+    //     setCargando(false);
+    // }, [fecha]);
     const cargarDisponibilidad = useCallback(async () => {
         if (!fecha) return;
 
         setCargando(true);
         setError('');
-        const nuevaDisponibilidad = {};
 
-        for (const barbero of barberos) {
-            try {
-                const { data } = await axios.get(
-                    `https://back-barber-q7x2.onrender.com/disponibilidad/${barbero}/${fecha}`
-                );
-                nuevaDisponibilidad[barbero] = data.disponibles;
-            } catch (err) {
-                console.warn(`No hay disponibilidad para ${barbero}`);
-                nuevaDisponibilidad[barbero] = [];
-            }
+        try {
+            const respuestas = await Promise.all(
+                barberos.map((barbero) =>
+                    axios.get(`https://back-barber-q7x2.onrender.com/disponibilidad/${barbero}/${fecha}`)
+                        .then((res) => ({ barbero, data: res.data.disponibles }))
+                        .catch(() => ({ barbero, data: [] }))
+                )
+            );
+
+            const nuevaDisponibilidad = {};
+            respuestas.forEach(({ barbero, data }) => {
+                nuevaDisponibilidad[barbero] = data;
+            });
+
+            setDisponibilidad(nuevaDisponibilidad);
+        } catch (err) {
+            console.error('Error cargando disponibilidad:', err);
+            setError('Error al cargar la disponibilidad');
         }
 
-        setDisponibilidad(nuevaDisponibilidad);
         setCargando(false);
     }, [fecha]);
+
+
 
     useEffect(() => {
         cargarDisponibilidad();
