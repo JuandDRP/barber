@@ -205,7 +205,7 @@ export const ResumenBarberia = () => {
                       <div>
                         <span className="font-medium">{r.hora}</span> - {r.nombreCliente}
                         <br />
-                        <span className="text-sm text-white">{r.numeroCelular}</span>
+                        <span className="text-sm">{r.numeroCelular}</span>
                       </div>
 
                       <div className="flex gap-2">

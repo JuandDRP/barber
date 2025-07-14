@@ -52,7 +52,7 @@ export const DisponibilidadBarberos = () => {
 
         setMensaje(
             `Reserva confirmada con ${barbero} a las ${seleccion[barbero]}` +
-            (esCorteGratis ? ' 🎉 ¡Este corte es gratuito por ser tu número 7!' : `, esta es tu peluqueada #${res.data.peluqueadas}`)
+            (esCorteGratis ? ' 🎉 ¡Este corte es gratuito por ser tu número 7!' : `, este es tu corte #${res.data.peluqueadas}`)
         );
         setError('');
         setSeleccion((prev) => ({ ...prev, [barbero]: '' }));
@@ -179,7 +179,7 @@ export const DisponibilidadBarberos = () => {
                                         )}
                                     </>
                                 ) : (
-                                    <p className="text-gray-500 italic">No hay horas disponibles para este barbero.</p>
+                                    <p className="text-gray-500 italic">No hay horas disponibles para este barbero, contáctanos por whatsapp para más información</p>
                                 )}
                             </div>
                         ))}
