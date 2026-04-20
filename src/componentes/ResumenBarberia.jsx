@@ -30,13 +30,13 @@ export const ResumenBarberia = () => {
   const [horasTexto, setHorasTexto] = useState('');
   const [mensajeDisp, setMensajeDisp] = useState('');
   useEffect(() => {
-    axios.get('https://back-barber-q7x2.onrender.com/ping').catch(() => {});
+    axios.get('https://back-barber-apew.onrender.com/ping').catch(() => {});
   }, []);
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrorLogin('');
     try {
-      const response = await axios.post('https://back-barber-q7x2.onrender.com/login', {
+      const response = await axios.post('https://back-barber-apew.onrender.com/login', {
         usuario,
         contrasena,
       });
@@ -56,7 +56,7 @@ export const ResumenBarberia = () => {
 
     const fetchClientes = async () => {
       try {
-        const { data } = await axios.get('https://back-barber-q7x2.onrender.com/clientes');
+        const { data } = await axios.get('https://back-barber-apew.onrender.com/clientes');
         setClientes(data);
       } catch (err) {
         setError('Error cargando clientes');
@@ -71,7 +71,7 @@ export const ResumenBarberia = () => {
 
     const fetchReservasPorFecha = async () => {
       try {
-        const { data } = await axios.get(`https://back-barber-q7x2.onrender.com/reservas/${fecha}`);
+        const { data } = await axios.get(`https://back-barber-apew.onrender.com/reservas/${fecha}`);
         setReservas(data);
       } catch (err) {
         setError('Error cargando reservas');
@@ -87,7 +87,7 @@ export const ResumenBarberia = () => {
     const horasArray = horasTexto.split(',').map(h => h.trim());
 
     try {
-      await axios.post('https://back-barber-q7x2.onrender.com/disponibilidad', {
+      await axios.post('https://back-barber-apew.onrender.com/disponibilidad', {
         barbero,
         fecha: fechaDisp,
         horas: horasArray
@@ -114,8 +114,8 @@ export const ResumenBarberia = () => {
 
   const eliminarReserva = async (reserva) => {
     try {
-      // await axios.post('https://back-barber-q7x2.onrender.com/eliminarReserva', {
-      await axios.post('https://back-barber-q7x2.onrender.com/eliminarReserva', {
+      // await axios.post('https://back-barber-apew.onrender.com/eliminarReserva', {
+      await axios.post('https://back-barber-apew.onrender.com/eliminarReserva', {
 
         barbero: reserva.barbero,
         fecha: reserva.fecha,

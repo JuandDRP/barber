@@ -40,7 +40,7 @@ export const DisponibilidadBarberos = () => {
         }
 
         try {
-            const res = await axios.post('https://back-barber-q7x2.onrender.com/reservar', {
+            const res = await axios.post('https://back-barber-apew.onrender.com/reservar', {
                 nombreCliente,
                 numeroCelular,
                 barbero,
@@ -75,7 +75,7 @@ export const DisponibilidadBarberos = () => {
     //     for (const barbero of barberos) {
     //         try {
     //             const { data } = await axios.get(
-    //                 `https://back-barber-q7x2.onrender.com/disponibilidad/${barbero}/${fecha}`
+    //                 `https://back-barber-apew.onrender.com/disponibilidad/${barbero}/${fecha}`
     //             );
     //             nuevaDisponibilidad[barbero] = data.disponibles;
     //         } catch (err) {
@@ -96,7 +96,7 @@ export const DisponibilidadBarberos = () => {
         try {
             const respuestas = await Promise.all(
                 barberos.map((barbero) =>
-                    axios.get(`https://back-barber-q7x2.onrender.com/disponibilidad/${barbero}/${fecha}`)
+                    axios.get(`https://back-barber-apew.onrender.com/disponibilidad/${barbero}/${fecha}`)
                         .then((res) => ({ barbero, data: res.data.disponibles }))
                         .catch(() => ({ barbero, data: [] }))
                 )
